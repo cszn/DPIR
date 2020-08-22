@@ -66,7 +66,6 @@ def main():
     save_L = True                        # save LR image
     save_E = True                        # save estimated image
     save_LEH = False                     # save zoomed LR, E and H images
-    border = 10
 
     task_current = 'sr'                  # 'sr' for super-resolution
     n_channels = 1 if 'gray' in model_name else 3  # fixed
@@ -128,7 +127,7 @@ def main():
     test_results_ave['psnr_y_sf_k'] = []
 
     for sf in test_sf:
-
+        border = sf
         modelSigma2 = max(sf, noise_level_model*255.)
         k_num = 8 if classical_degradation else 1
 
