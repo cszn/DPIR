@@ -119,7 +119,7 @@ def main():
 
     # kernels = hdf5storage.loadmat(os.path.join('kernels', 'Levin09.mat'))['kernels']
     if classical_degradation:
-        kernels = hdf5storage.loadmat(os.path.join('kernels', 'kernels.mat'))['kernels']
+        kernels = hdf5storage.loadmat(os.path.join('kernels', 'kernels_12.mat'))['kernels']
     else:
         kernels = hdf5storage.loadmat(os.path.join('kernels', 'kernel_bicubicx234.mat'))['kernels']
 
