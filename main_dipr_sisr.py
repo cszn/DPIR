@@ -39,8 +39,8 @@ by Kai Zhang (01/August/2020)
 
 # --------------------------------------------
 |--model_zoo               # model_zoo
-   |--drunet_gray          # model_name, for color images
-   |--drunet_color
+   |--drunet_color         # model_name, for color images
+   |--drunet_gray
 |--testset                 # testsets
 |--results                 # results
 # --------------------------------------------
@@ -54,7 +54,7 @@ def main():
 
     noise_level_img = 0/255.0            # set AWGN noise level for LR image, default: 0, 
     noise_level_model = noise_level_img  # setnoise level of model, default 0
-    model_name = 'drunet_color'           # set denoiser, | 'drunet_color' | 'ircnn_gray' | 'drunet_gray' | 'ircnn_color'
+    model_name = 'drunet_color'          # set denoiser, | 'drunet_color' | 'ircnn_gray' | 'drunet_gray' | 'ircnn_color'
     testset_name = 'srbsd68'             # set test set,  'set5' | 'srbsd68'
     x8 = True                            # default: False, x8 to boost performance
     test_sf = [2]                        # set scale factor, default: [2, 3, 4], [2], [3], [4]
