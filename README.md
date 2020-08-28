@@ -4,10 +4,10 @@
 
 The Deep Denoiser
 ----------
-<img src="figs/denoiser_arch.png" width="700px"/> 
+<img src="figs/denoiser_arch.png" width="800px"/> 
 
 
-<img src="figs/grayscale_psnr.png" width="700px"/> 
+<img src="figs/grayscale_psnr.png" width="800px"/> 
 
 
 ```BibTex
