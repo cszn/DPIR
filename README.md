@@ -14,7 +14,7 @@ The Deep Denoiser
 
 * Color image denoising
 
-  <img src="figs/color_psnr.png" width="360px"/> 
+  <img src="figs/color_psnr.png" width="375px"/> 
 
 
 
