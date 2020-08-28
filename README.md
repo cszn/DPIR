@@ -17,6 +17,24 @@ The Deep Denoiser
   <img src="figs/color_psnr.png" width="375px"/> 
 
 
+Image Deblurring
+----------
+
+<img src="figs/deblur_1.png" width="800px"/> 
+
+
+Single Image Super-Resolution
+----------
+
+<img src="figs/sisr_1.png" width="800px"/> 
+
+
+Color Image Demosaicing
+----------
+
+<img src="figs/demosaic_1.png" width="800px"/> 
+
+<img src="figs/demosaic_2.png" width="800px"/> 
 
 
 Citation
