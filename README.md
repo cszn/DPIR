@@ -34,21 +34,27 @@ The Deep Denoiser
 Image Deblurring
 ----------
 * Visual comparison
+
   <img src="figs/deblur_1.png" width="800px"/> 
 
 
 Single Image Super-Resolution
 ----------
 * Visual comparison
+
   <img src="figs/sisr_1.png" width="800px"/> 
 
 
 Color Image Demosaicing
 ----------
 * PSNR
+
   <img src="figs/demosaic_1.png" width="800px"/> 
+
 * Visual comparison
+
   <img src="figs/demosaic_2.png" width="800px"/> 
+
 
 
 Citation
