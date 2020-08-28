@@ -2,7 +2,12 @@
 
 
 
+The Deep Denoiser
+----------
+<img src="figs/denoiser_arch.png" width="600px"/> 
 
+
+<img src="figs/grayscale_psnr.png" width="600px"/> 
 
 
 ```BibTex
