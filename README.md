@@ -4,12 +4,23 @@
 
 The Deep Denoiser
 ----------
-<img src="figs/denoiser_arch.png" width="800px"/> 
+* Network architecture
+
+  <img src="figs/denoiser_arch.png" width="800px"/> 
+
+* Grayscale image denoising
+
+  <img src="figs/grayscale_psnr.png" width="800px"/> 
+
+* Color image denoising
+
+  <img src="figs/color_psnr.png" width="400px"/> 
 
 
-<img src="figs/grayscale_psnr.png" width="800px"/> 
 
 
+Citation
+----------
 ```BibTex
 @article{zhang2020plug,
   title={Plug-and-Play Image Restoration with Deep Denoiser Prior},
