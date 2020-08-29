@@ -1,4 +1,4 @@
-# DPIR
+# Deep Plug-and-Play Image Restoration
 
 Abstract
 ----------
