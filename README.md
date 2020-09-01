@@ -1,5 +1,5 @@
 # Deep Plug-and-Play Image Restoration
-[Kai Zhang](https://cszn.github.io/), [Yawei Li](https://yaweili.bitbucket.io/), [Wangmeng Zuo](https://scholar.google.com.hk/citations?user=rUOpCEYAAAAJ&hl=zh-CN), [Lei Zhang](http://www4.comp.polyu.edu.hk/~cslzhang/), [Luc Van Gool](https://vision.ee.ethz.ch/people-details.OTAyMzM=.TGlzdC8zMjQ4LC0xOTcxNDY1MTc4.html), [Radu Timofte](http://people.ee.ethz.ch/~timofter/)  
+[**Kai Zhang**](https://cszn.github.io/), [Yawei Li](https://yaweili.bitbucket.io/), [Wangmeng Zuo](https://scholar.google.com.hk/citations?user=rUOpCEYAAAAJ&hl=zh-CN), [Lei Zhang](http://www4.comp.polyu.edu.hk/~cslzhang/), [Luc Van Gool](https://vision.ee.ethz.ch/people-details.OTAyMzM=.TGlzdC8zMjQ4LC0xOTcxNDY1MTc4.html), [Radu Timofte](http://people.ee.ethz.ch/~timofter/)  
 _[Computer Vision Lab](https://vision.ee.ethz.ch/the-institute.html), ETH Zurich, Switzerland_
 
 [[paper](https://arxiv.org/pdf/2008.13751.pdf)]
