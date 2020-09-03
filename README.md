@@ -70,4 +70,11 @@ Citation
   journal={arXiv preprint},
   year={2020}
 }
+ @inproceedings{zhang2017learning,
+   title={Learning Deep CNN Denoiser Prior for Image Restoration},
+   author={Zhang, Kai and Zuo, Wangmeng and Gu, Shuhang and Zhang, Lei},
+   booktitle={IEEE Conference on Computer Vision and Pattern Recognition},
+   pages={3929--3938},
+   year={2017},
+ }
 ```
