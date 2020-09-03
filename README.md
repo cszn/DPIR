@@ -38,6 +38,7 @@ The Deep Denoiser
 |:---:|:---:|
 |<i>(a) Noisy image with noise level 200</i>|<i>(b) Result by the proposed DRUNet denoiser</i>|
 
+**Even trained on noise level range of [0, 50], DRUNet can still perform well on an extremely large unseen noise level of 200.**
 
 Image Deblurring
 ----------
