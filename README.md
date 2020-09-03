@@ -33,6 +33,10 @@ The Deep Denoiser
 * Color image denoising
 
   <img src="figs/color_psnr.png" width="375px"/> 
+  
+|<img align="center" src="figs/test_03_noisy_0750.png" width="320px"/> | <img align="center" src="figs/test_03_usrnet_2355.png" width="320px"/> |
+|:---:|:---:|
+|<i>(a) Noisy image with noise level 200</i>|<i>(b) Result by the proposed DRUNet denoiser</i>|
 
 
 Image Deblurring
