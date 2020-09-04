@@ -20,7 +20,7 @@ plug-and-play image restoration with deep denoiser prior not only significantly 
 but also achieves competitive or even superior performance against state-of-the-art learning-based methods.
 
 
-The Deep Denoiser
+The DRUNet Denoiser (state-of-the-art Gaussian denoising performance!)
 ----------
 * Network architecture
 
