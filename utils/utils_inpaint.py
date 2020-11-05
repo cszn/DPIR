@@ -25,6 +25,15 @@ def get_rho_sigma(sigma=2.55/255, iter_num=15, modelSigma2=2.55):
 
 
 def shepard_initialize(image, measurement_mask, window=5, p=2):
+    """
+    Initialize the shepard image.
+
+    Args:
+        image: (array): write your description
+        measurement_mask: (str): write your description
+        window: (todo): write your description
+        p: (todo): write your description
+    """
     wing = np.floor(window/2).astype(int) # Length of each "wing" of the window.
     h, w = image.shape[0:2]
     ch = 3 if image.ndim == 3 and image.shape[-1] == 3 else 1

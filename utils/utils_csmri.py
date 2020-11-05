@@ -39,15 +39,34 @@ def splits(a, sf):
 
 
 def c2c(x):
+    """
+    Convert c2c2c2c2c2c2c
+
+    Args:
+        x: (todo): write your description
+    """
     return torch.from_numpy(np.stack([np.float32(x.real), np.float32(x.imag)], axis=-1))
 
 
 def r2c(x):
+    """
+    Returns a 2d array x into a 2d array
+
+    Args:
+        x: (todo): write your description
+    """
     # convert real to complex
     return torch.stack([x, torch.zeros_like(x)], -1)
 
 
 def cdiv(x, y):
+    """
+    Cdivide ( x y ).
+
+    Args:
+        x: (int): write your description
+        y: (int): write your description
+    """
     # complex division
     a, b = x[..., 0], x[..., 1]
     c, d = y[..., 0], y[..., 1]
@@ -56,22 +75,48 @@ def cdiv(x, y):
 
 
 def crdiv(x, y):
+    """
+    Crdivivivivative
+
+    Args:
+        x: (int): write your description
+        y: (int): write your description
+    """
     # complex/real division
     a, b = x[..., 0], x[..., 1]
     return torch.stack([a/y, b/y], -1)
 
 
 def csum(x, y):
+    """
+    Returns the y ( x y )
+
+    Args:
+        x: (todo): write your description
+        y: (todo): write your description
+    """
     # complex + real
     return torch.stack([x[..., 0] + y, x[..., 1]], -1)
 
 
 def cabs(x):
+    """
+    Cabs ( x ( x ).
+
+    Args:
+        x: (todo): write your description
+    """
     # modulus of a complex number
     return torch.pow(x[..., 0]**2+x[..., 1]**2, 0.5)
 
 
 def cabs2(x):
+    """
+    Returns the 2d2 array x.
+
+    Args:
+        x: (todo): write your description
+    """
     return x[..., 0]**2+x[..., 1]**2
 
 
@@ -105,21 +150,45 @@ def cconj(t, inplace=False):
 
 
 def rfft(t):
+    """
+    Compute the fft of a time tff tff.
+
+    Args:
+        t: (array): write your description
+    """
     # Real-to-complex Discrete Fourier Transform
     return torch.rfft(t, 2, onesided=False)
 
 
 def irfft(t):
+    """
+    Compute the fft fourier transform.
+
+    Args:
+        t: (array): write your description
+    """
     # Complex-to-real Inverse Discrete Fourier Transform
     return torch.irfft(t, 2, onesided=False)
 
 
 def fft(t):
+    """
+    Compute the fft of t
+
+    Args:
+        t: (array): write your description
+    """
     # Complex-to-complex Discrete Fourier Transform
     return torch.fft(t, 2)
 
 
 def ifft(t):
+    """
+    If t isftch. t.
+
+    Args:
+        t: (array): write your description
+    """
     # Complex-to-complex Inverse Discrete Fourier Transform
     return torch.ifft(t, 2)
 
@@ -173,6 +242,18 @@ def downsample(x, sf=3):
 
 
 def data_solution(x, FB, FBC, F2B, FBFy, alpha, sf):
+    """
+    Computes a solution solution.
+
+    Args:
+        x: (todo): write your description
+        FB: (todo): write your description
+        FBC: (todo): write your description
+        F2B: (todo): write your description
+        FBFy: (todo): write your description
+        alpha: (float): write your description
+        sf: (todo): write your description
+    """
     FR = FBFy + torch.rfft(alpha*x, 2, onesided=False)
     x1 = cmul(FB, FR)
     FBR = torch.mean(splits(x1, sf), dim=-1, keepdim=False)
@@ -212,6 +293,12 @@ PyTorch
 
 
 def real2complex(x):
+    """
+    Return the real operator.
+
+    Args:
+        x: (todo): write your description
+    """
     return torch.stack([x, torch.zeros_like(x)], -1)
 
 
@@ -253,6 +340,14 @@ def pad_circular(input, padding):
 
 
 def dim_pad_circular(input, padding, dimension):
+    """
+    Dimular padding to a given dimension.
+
+    Args:
+        input: (todo): write your description
+        padding: (float): write your description
+        dimension: (int): write your description
+    """
     # type: (Tensor, int, int) -> Tensor
     input = torch.cat([input, input[[slice(None)] * (dimension - 1) +
                       [slice(0, padding)]]], dim=dimension - 1)
@@ -302,6 +397,14 @@ def Gt(x, k, sf=3):
 
 
 def interpolation_down(x, sf, center=False):
+    """
+    Interpolate the tensor.
+
+    Args:
+        x: (array): write your description
+        sf: (array): write your description
+        center: (float): write your description
+    """
     mask = torch.zeros_like(x)
     if center:
         start = torch.tensor((sf-1)//2)

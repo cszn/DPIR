@@ -24,6 +24,14 @@ modified by Kai Zhang (github: https://github.com/cszn)
 
 
 def blockproc(im, blocksize, fun):
+    """
+    Blockproc blocksize blocksize block
+
+    Args:
+        im: (int): write your description
+        blocksize: (int): write your description
+        fun: (callable): write your description
+    """
     xblocks = np.split(im, range(blocksize[0], im.shape[0], blocksize[0]), axis=0)
     xblocks_proc = []
     for xb in xblocks:
@@ -40,10 +48,23 @@ def blockproc(im, blocksize, fun):
 
 
 def fun_reshape(a):
+    """
+    Funape op.
+
+    Args:
+        a: (int): write your description
+    """
     return np.reshape(a, (-1,1,a.shape[-1]), order='F')
 
 
 def fun_mul(a, b):
+    """
+    Functions for a - b.
+
+    Args:
+        a: (int): write your description
+        b: (int): write your description
+    """
     return a*b
 
 
@@ -107,15 +128,34 @@ def splits(a, sf):
 
 
 def c2c(x):
+    """
+    Convert c2c2c2c2c2c2c
+
+    Args:
+        x: (todo): write your description
+    """
     return torch.from_numpy(np.stack([np.float32(x.real), np.float32(x.imag)], axis=-1))
 
 
 def r2c(x):
+    """
+    Returns a 2d array x into a 2d array
+
+    Args:
+        x: (todo): write your description
+    """
     # convert real to complex
     return torch.stack([x, torch.zeros_like(x)], -1)
 
 
 def cdiv(x, y):
+    """
+    Cdivide ( x y ).
+
+    Args:
+        x: (int): write your description
+        y: (int): write your description
+    """
     # complex division
     a, b = x[..., 0], x[..., 1]
     c, d = y[..., 0], y[..., 1]
@@ -124,22 +164,48 @@ def cdiv(x, y):
 
 
 def crdiv(x, y):
+    """
+    Crdivivivivative
+
+    Args:
+        x: (int): write your description
+        y: (int): write your description
+    """
     # complex/real division
     a, b = x[..., 0], x[..., 1]
     return torch.stack([a/y, b/y], -1)
 
 
 def csum(x, y):
+    """
+    Returns the y ( x y )
+
+    Args:
+        x: (todo): write your description
+        y: (todo): write your description
+    """
     # complex + real
     return torch.stack([x[..., 0] + y, x[..., 1]], -1)
 
 
 def cabs(x):
+    """
+    Cabs ( x ( x ).
+
+    Args:
+        x: (todo): write your description
+    """
     # modulus of a complex number
     return torch.pow(x[..., 0]**2+x[..., 1]**2, 0.5)
 
 
 def cabs2(x):
+    """
+    Returns the 2d2 array x.
+
+    Args:
+        x: (todo): write your description
+    """
     return x[..., 0]**2+x[..., 1]**2
 
 
@@ -173,21 +239,45 @@ def cconj(t, inplace=False):
 
 
 def rfft(t):
+    """
+    Compute the fft of a time tff tff.
+
+    Args:
+        t: (array): write your description
+    """
     # Real-to-complex Discrete Fourier Transform
     return torch.rfft(t, 2, onesided=False)
 
 
 def irfft(t):
+    """
+    Compute the fft fourier transform.
+
+    Args:
+        t: (array): write your description
+    """
     # Complex-to-real Inverse Discrete Fourier Transform
     return torch.irfft(t, 2, onesided=False)
 
 
 def fft(t):
+    """
+    Compute the fft of t
+
+    Args:
+        t: (array): write your description
+    """
     # Complex-to-complex Discrete Fourier Transform
     return torch.fft(t, 2)
 
 
 def ifft(t):
+    """
+    If t isftch. t.
+
+    Args:
+        t: (array): write your description
+    """
     # Complex-to-complex Inverse Discrete Fourier Transform
     return torch.ifft(t, 2)
 
@@ -241,6 +331,18 @@ def downsample(x, sf=3):
 
 
 def data_solution(x, FB, FBC, F2B, FBFy, alpha, sf):
+    """
+    Computes a solution solution.
+
+    Args:
+        x: (todo): write your description
+        FB: (todo): write your description
+        FBC: (todo): write your description
+        F2B: (todo): write your description
+        FBFy: (todo): write your description
+        alpha: (float): write your description
+        sf: (todo): write your description
+    """
     FR = FBFy + torch.rfft(alpha*x, 2, onesided=False)
     x1 = cmul(FB, FR)
     FBR = torch.mean(splits(x1, sf), dim=-1, keepdim=False)
@@ -383,6 +485,14 @@ def modcrop_np(img, sf):
 
 
 def upsample_np(x, sf=3, center=False):
+    """
+    Upsample array of size of size nd.
+
+    Args:
+        x: (todo): write your description
+        sf: (todo): write your description
+        center: (float): write your description
+    """
     st = (sf-1)//2 if center else 0
     z = np.zeros((x.shape[0]*sf, x.shape[1]*sf, x.shape[2]))
     z[st::sf, st::sf, ...] = x
@@ -390,6 +500,14 @@ def upsample_np(x, sf=3, center=False):
 
 
 def downsample_np(x, sf=3, center=False):
+    """
+    Reverse of the array.
+
+    Args:
+        x: (todo): write your description
+        sf: (todo): write your description
+        center: (float): write your description
+    """
     st = (sf-1)//2 if center else 0
     return x[st::sf, st::sf, ...]
 
@@ -437,6 +555,12 @@ PyTorch
 
 
 def real2complex(x):
+    """
+    Return the real operator.
+
+    Args:
+        x: (todo): write your description
+    """
     return torch.stack([x, torch.zeros_like(x)], -1)
 
 
@@ -478,6 +602,14 @@ def pad_circular(input, padding):
 
 
 def dim_pad_circular(input, padding, dimension):
+    """
+    Dimular padding to a given dimension.
+
+    Args:
+        input: (todo): write your description
+        padding: (float): write your description
+        dimension: (int): write your description
+    """
     # type: (Tensor, int, int) -> Tensor
     input = torch.cat([input, input[[slice(None)] * (dimension - 1) +
                       [slice(0, padding)]]], dim=dimension - 1)
@@ -527,6 +659,14 @@ def Gt(x, k, sf=3):
 
 
 def interpolation_down(x, sf, center=False):
+    """
+    Interpolate the tensor.
+
+    Args:
+        x: (array): write your description
+        sf: (array): write your description
+        center: (float): write your description
+    """
     mask = torch.zeros_like(x)
     if center:
         start = torch.tensor((sf-1)//2)
@@ -712,6 +852,14 @@ def anisotropic_Gaussian(ksize=15, theta=np.pi, l1=6, l2=6):
 
 
 def gm_blur_kernel(mean, cov, size=15):
+    """
+    Compute mean kernel mean kernel.
+
+    Args:
+        mean: (todo): write your description
+        cov: (array): write your description
+        size: (int): write your description
+    """
     center = size / 2.0 + 0.5
     k = np.zeros([size, size])
     for y in range(size):
@@ -757,6 +905,16 @@ def show_pca(x):
 
 
 def cal_pca_matrix(path='PCA_matrix.mat', ksize=15, l_max=12.0, dim_pca=15, num_samples=500):
+    """
+    Calculate pca matrix.
+
+    Args:
+        path: (str): write your description
+        ksize: (int): write your description
+        l_max: (int): write your description
+        dim_pca: (array): write your description
+        num_samples: (int): write your description
+    """
     kernels = np.zeros([ksize*ksize, num_samples], dtype=np.float32)
     for i in range(num_samples):
 

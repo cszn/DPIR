@@ -91,16 +91,34 @@ def dm_matlab(imgs):
 
 
 def tstack(a):  # cv2.merge()
+    """
+    Concatenate a list of arrays.
+
+    Args:
+        a: (todo): write your description
+    """
     a = np.asarray(a)
     return np.concatenate([x[..., np.newaxis] for x in a], axis=-1)
 
 
 def tsplit(a):  # cv2.split()
+    """
+    Tsplicates of the array.
+
+    Args:
+        a: (array): write your description
+    """
     a = np.asarray(a)
     return np.array([a[..., x] for x in range(a.shape[-1])])
 
 
 def masks_CFA_Bayer(shape):
+    """
+    Return the channel channels of a channel.
+
+    Args:
+        shape: (int): write your description
+    """
     pattern = 'RGGB'
     channels = dict((channel, np.zeros(shape)) for channel in 'RGB')
     for channel, (y, x) in zip(pattern, [(0, 0), (0, 1), (1, 0), (1, 1)]):
@@ -109,6 +127,12 @@ def masks_CFA_Bayer(shape):
 
 
 def mosaic_CFA_Bayer(RGB):
+    """
+    Mosaic 2d_Cic.
+
+    Args:
+        RGB: (todo): write your description
+    """
     R_m, G_m, B_m = masks_CFA_Bayer(RGB.shape[0:2])
     mask = np.concatenate((R_m[..., np.newaxis], G_m[..., np.newaxis], B_m[..., np.newaxis]), axis=-1)
     # mask = tstack((R_m, G_m, B_m))
