@@ -66,6 +66,13 @@ class DnCNN(nn.Module):
         self.model = B.sequential(m_head, *m_body, m_tail)
 
     def forward(self, x):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         n = self.model(x)
         return x-n
 
@@ -109,6 +116,13 @@ class IRCNN(nn.Module):
         self.model = B.sequential(*L)
 
     def forward(self, x):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         n = self.model(x)
         return x-n
 
@@ -146,6 +160,13 @@ class FDnCNN(nn.Module):
         self.model = B.sequential(m_head, *m_body, m_tail)
 
     def forward(self, x):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         x = self.model(x)
         return x
 

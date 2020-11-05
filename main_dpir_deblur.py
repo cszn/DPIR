@@ -46,6 +46,11 @@ by Kai Zhang (01/August/2020)
 """
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
 
     # ----------------------------------------
     # Preparation

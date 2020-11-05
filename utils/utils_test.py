@@ -16,6 +16,13 @@ import utils_image as util
 # get uint8 image of size HxWxn_channles (RGB)
 # ----------------------------------------
 def imread_uint(path, n_channels=3):
+    """
+    Reads an rgb image from a png image file.
+
+    Args:
+        path: (str): write your description
+        n_channels: (int): write your description
+    """
     #  input: path
     # output: HxWx3(RGB or GGG), or HxWx1 (G)
     if n_channels == 1:
@@ -31,6 +38,13 @@ def imread_uint(path, n_channels=3):
 
 
 def augment_img(img, mode=0):
+    """
+    Rotate an image
+
+    Args:
+        img: (array): write your description
+        mode: (str): write your description
+    """
     if mode == 0:
         return img
     elif mode == 1:
@@ -50,6 +64,13 @@ def augment_img(img, mode=0):
 
 
 def augment_img_tensor4(img, mode=0):
+    """
+    Rotate the tensor for a given image.
+
+    Args:
+        img: (array): write your description
+        mode: (str): write your description
+    """
     if mode == 0:
         return img
     elif mode == 1:
@@ -69,6 +90,13 @@ def augment_img_tensor4(img, mode=0):
 
 
 def augment_img_np3(img, mode=0):
+    """
+    Convert an image
+
+    Args:
+        img: (array): write your description
+        mode: (todo): write your description
+    """
     if mode == 0:
         return img
     elif mode == 1:
@@ -97,6 +125,13 @@ def augment_img_np3(img, mode=0):
 
 
 def augment_img_tensor(img, mode=0):
+    """
+    Convert an image to a tensor.
+
+    Args:
+        img: (array): write your description
+        mode: (str): write your description
+    """
     img_size = img.size()
     img_np = img.data.cpu().numpy()
     if len(img_size) == 3:
@@ -114,12 +149,26 @@ def augment_img_tensor(img, mode=0):
 
 
 def augment_imgs(img_list, hflip=True, rot=True):
+    """
+    Augment a list of images.
+
+    Args:
+        img_list: (list): write your description
+        hflip: (todo): write your description
+        rot: (todo): write your description
+    """
     # horizontal flip OR rotate
     hflip = hflip and random.random() < 0.5
     vflip = rot and random.random() < 0.5
     rot90 = rot and random.random() < 0.5
 
     def _augment(img):
+        """
+        Transpose of - if the given an image.
+
+        Args:
+            img: (array): write your description
+        """
         if hflip:
             img = img[:, ::-1, :]
         if vflip:
@@ -133,6 +182,13 @@ def augment_imgs(img_list, hflip=True, rot=True):
 
 
 def p2o(psf, shape):
+    """
+    Compute p2o p2o p2o.
+
+    Args:
+        psf: (int): write your description
+        shape: (int): write your description
+    """
     otf = torch.zeros(psf.shape[:-2] + shape).type_as(psf)
     otf[...,:psf.shape[2],:psf.shape[3]].copy_(psf)
     for axis, axis_size in enumerate(psf.shape[2:]):
@@ -260,6 +316,13 @@ def splits(a, sf):
 
 
 def unsplits(a, sf):
+    """
+    Unsplits of the array.
+
+    Args:
+        a: (array): write your description
+        sf: (array): write your description
+    """
     a = a.reshape(a.shape[0],a.shape[1],a.shape[2]*sf,a.shape[3]*sf)
     return a
 

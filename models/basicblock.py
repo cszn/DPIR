@@ -59,6 +59,19 @@ def sequential(*args):
 # return nn.Sequantial of (Conv + BN + ReLU)
 # --------------------------------------------
 def conv(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, bias=True, mode='CBR', negative_slope=0.2):
+    """
+    Convaky layer.
+
+    Args:
+        in_channels: (int): write your description
+        out_channels: (int): write your description
+        kernel_size: (int): write your description
+        stride: (int): write your description
+        padding: (str): write your description
+        bias: (todo): write your description
+        mode: (str): write your description
+        negative_slope: (bool): write your description
+    """
     L = []
     for t in mode:
         if t == 'C':
@@ -139,13 +152,33 @@ class PixelUnShuffle(nn.Module):
     """
 
     def __init__(self, upscale_factor):
+        """
+        Initialize the factor.
+
+        Args:
+            self: (todo): write your description
+            upscale_factor: (float): write your description
+        """
         super(PixelUnShuffle, self).__init__()
         self.upscale_factor = upscale_factor
 
     def forward(self, input):
+        """
+        Forward forward forward factor.
+
+        Args:
+            self: (todo): write your description
+            input: (todo): write your description
+        """
         return pixel_unshuffle(input, self.upscale_factor)
 
     def extra_repr(self):
+        """
+        Return a human - readable string representation.
+
+        Args:
+            self: (todo): write your description
+        """
         return 'upscale_factor={}'.format(self.upscale_factor)
 
 
@@ -155,6 +188,14 @@ class PixelUnShuffle(nn.Module):
 # --------------------------------------------
 class ConditionalBatchNorm2d(nn.Module):
     def __init__(self, num_features, num_classes):
+        """
+        Initialize the embedding.
+
+        Args:
+            self: (todo): write your description
+            num_features: (int): write your description
+            num_classes: (int): write your description
+        """
         super().__init__()
         self.num_features = num_features
         self.bn = nn.BatchNorm2d(num_features, affine=False)
@@ -163,6 +204,14 @@ class ConditionalBatchNorm2d(nn.Module):
         self.embed.weight.data[:, num_features:].zero_()  # Initialise bias at 0
 
     def forward(self, x, y):
+        """
+        Forward computation
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+            y: (todo): write your description
+        """
         out = self.bn(x)
         gamma, beta = self.embed(y).chunk(2, 1)
         out = gamma.view(-1, self.num_features, 1, 1) * out + beta.view(-1, self.num_features, 1, 1)
@@ -174,14 +223,34 @@ class ConditionalBatchNorm2d(nn.Module):
 # --------------------------------------------
 class ConcatBlock(nn.Module):
     def __init__(self, submodule):
+        """
+        Initialize a submodule
+
+        Args:
+            self: (todo): write your description
+            submodule: (todo): write your description
+        """
         super(ConcatBlock, self).__init__()
         self.sub = submodule
 
     def forward(self, x):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         output = torch.cat((x, self.sub(x)), dim=1)
         return output
 
     def __repr__(self):
+        """
+        Return a repr representation of this parameter.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.sub.__repr__() + 'concat'
 
 
@@ -190,15 +259,35 @@ class ConcatBlock(nn.Module):
 # --------------------------------------------
 class ShortcutBlock(nn.Module):
     def __init__(self, submodule):
+        """
+        Initialize a submodule.
+
+        Args:
+            self: (todo): write your description
+            submodule: (todo): write your description
+        """
         super(ShortcutBlock, self).__init__()
 
         self.sub = submodule
 
     def forward(self, x):
+        """
+        Forward function.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         output = x + self.sub(x)
         return output
 
     def __repr__(self):
+        """
+        Return a repr string representation of a string.
+
+        Args:
+            self: (todo): write your description
+        """
         tmpstr = 'Identity + \n|'
         modstr = self.sub.__repr__().replace('\n', '\n|')
         tmpstr = tmpstr + modstr
@@ -210,6 +299,20 @@ class ShortcutBlock(nn.Module):
 # --------------------------------------------
 class ResBlock(nn.Module):
     def __init__(self, in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, bias=True, mode='CRC', negative_slope=0.2):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            in_channels: (int): write your description
+            out_channels: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            bias: (float): write your description
+            mode: (todo): write your description
+            negative_slope: (todo): write your description
+        """
         super(ResBlock, self).__init__()
 
         assert in_channels == out_channels, 'Only support in_channels==out_channels.'
@@ -219,6 +322,13 @@ class ResBlock(nn.Module):
         self.res = conv(in_channels, out_channels, kernel_size, stride, padding, bias, mode, negative_slope)
 
     def forward(self, x):
+        """
+        Forward function.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         #res = self.res(x)
         return x + self.res(x)
 
@@ -244,6 +354,21 @@ class IMDBlock(nn.Module):
     }
     """
     def __init__(self, in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, bias=True, mode='CL', d_rate=0.25, negative_slope=0.05):
+        """
+        Initialize the convolution layer.
+
+        Args:
+            self: (todo): write your description
+            in_channels: (int): write your description
+            out_channels: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            bias: (float): write your description
+            mode: (todo): write your description
+            d_rate: (float): write your description
+            negative_slope: (todo): write your description
+        """
         super(IMDBlock, self).__init__()
         self.d_nc = int(in_channels * d_rate)
         self.r_nc = int(in_channels - self.d_nc)
@@ -257,6 +382,13 @@ class IMDBlock(nn.Module):
         self.conv1x1 = conv(self.d_nc*4, out_channels, kernel_size=1, stride=1, padding=0, bias=bias, mode=mode[0], negative_slope=negative_slope)
 
     def forward(self, x):
+        """
+        Perform forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         d1, r = torch.split(self.conv1(x), (self.d_nc, self.r_nc), dim=1)
         d2, r = torch.split(self.conv2(r), (self.d_nc, self.r_nc), dim=1)
         d3, r = torch.split(self.conv3(r), (self.d_nc, self.r_nc), dim=1)
@@ -274,6 +406,14 @@ class IMDBlock(nn.Module):
 # --------------------------------------------
 class CALayer(nn.Module):
     def __init__(self, channel=64, reduction=16):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            channel: (todo): write your description
+            reduction: (todo): write your description
+        """
         super(CALayer, self).__init__()
 
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
@@ -285,6 +425,13 @@ class CALayer(nn.Module):
         )
 
     def forward(self, x):
+        """
+        Calculate forward forward
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         y = self.avg_pool(x)
         y = self.conv_fc(y)
         return x * y
@@ -295,6 +442,21 @@ class CALayer(nn.Module):
 # --------------------------------------------
 class RCABlock(nn.Module):
     def __init__(self, in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, bias=True, mode='CRC', reduction=16, negative_slope=0.2):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            in_channels: (int): write your description
+            out_channels: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            bias: (float): write your description
+            mode: (todo): write your description
+            reduction: (todo): write your description
+            negative_slope: (todo): write your description
+        """
         super(RCABlock, self).__init__()
         assert in_channels == out_channels, 'Only support in_channels==out_channels.'
         if mode[0] in ['R','L']:
@@ -304,6 +466,13 @@ class RCABlock(nn.Module):
         self.ca = CALayer(out_channels, reduction)
 
     def forward(self, x):
+        """
+        Perform forward.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         res = self.res(x)
         res = self.ca(res)
         return res + x
@@ -314,6 +483,22 @@ class RCABlock(nn.Module):
 # --------------------------------------------
 class RCAGroup(nn.Module):
     def __init__(self, in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, bias=True, mode='CRC', reduction=16, nb=12, negative_slope=0.2):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            in_channels: (int): write your description
+            out_channels: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            bias: (float): write your description
+            mode: (todo): write your description
+            reduction: (todo): write your description
+            nb: (int): write your description
+            negative_slope: (todo): write your description
+        """
         super(RCAGroup, self).__init__()
         assert in_channels == out_channels, 'Only support in_channels==out_channels.'
         if mode[0] in ['R','L']:
@@ -324,6 +509,13 @@ class RCAGroup(nn.Module):
         self.rg = nn.Sequential(*RG)  # self.rg = ShortcutBlock(nn.Sequential(*RG))
 
     def forward(self, x):
+        """
+        Forward function to the given x.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         res = self.rg(x)
         return res + x
 
@@ -334,6 +526,20 @@ class RCAGroup(nn.Module):
 # --------------------------------------------
 class ResidualDenseBlock_5C(nn.Module):
     def __init__(self, nc=64, gc=32, kernel_size=3, stride=1, padding=1, bias=True, mode='CR', negative_slope=0.2):
+        """
+        Initialize convolutional layer.
+
+        Args:
+            self: (todo): write your description
+            nc: (int): write your description
+            gc: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            bias: (float): write your description
+            mode: (todo): write your description
+            negative_slope: (todo): write your description
+        """
         super(ResidualDenseBlock_5C, self).__init__()
         # gc: growth channel
         self.conv1 = conv(nc, gc, kernel_size, stride, padding, bias, mode, negative_slope)
@@ -343,6 +549,13 @@ class ResidualDenseBlock_5C(nn.Module):
         self.conv5 = conv(nc+4*gc, nc, kernel_size, stride, padding, bias, mode[:-1], negative_slope)
 
     def forward(self, x):
+        """
+        Perform forward forward forward.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         x1 = self.conv1(x)
         x2 = self.conv2(torch.cat((x, x1), 1))
         x3 = self.conv3(torch.cat((x, x1, x2), 1))
@@ -357,6 +570,20 @@ class ResidualDenseBlock_5C(nn.Module):
 # --------------------------------------------
 class RRDB(nn.Module):
     def __init__(self, nc=64, gc=32, kernel_size=3, stride=1, padding=1, bias=True, mode='CR', negative_slope=0.2):
+        """
+        Initialize the convolution
+
+        Args:
+            self: (todo): write your description
+            nc: (int): write your description
+            gc: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            bias: (float): write your description
+            mode: (todo): write your description
+            negative_slope: (todo): write your description
+        """
         super(RRDB, self).__init__()
 
         self.RDB1 = ResidualDenseBlock_5C(nc, gc, kernel_size, stride, padding, bias, mode, negative_slope)
@@ -364,6 +591,13 @@ class RRDB(nn.Module):
         self.RDB3 = ResidualDenseBlock_5C(nc, gc, kernel_size, stride, padding, bias, mode, negative_slope)
 
     def forward(self, x):
+        """
+        Evaluates of x.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         out = self.RDB1(x)
         out = self.RDB2(out)
         out = self.RDB3(out)
@@ -386,6 +620,19 @@ class RRDB(nn.Module):
 # conv + subp (+ relu)
 # --------------------------------------------
 def upsample_pixelshuffle(in_channels=64, out_channels=3, kernel_size=3, stride=1, padding=1, bias=True, mode='2R', negative_slope=0.2):
+    """
+    Biasample image.
+
+    Args:
+        in_channels: (int): write your description
+        out_channels: (int): write your description
+        kernel_size: (int): write your description
+        stride: (int): write your description
+        padding: (int): write your description
+        bias: (float): write your description
+        mode: (todo): write your description
+        negative_slope: (bool): write your description
+    """
     assert len(mode)<4 and mode[0] in ['2', '3', '4'], 'mode examples: 2, 2R, 2BR, 3, ..., 4BR.'
     up1 = conv(in_channels, out_channels * (int(mode[0]) ** 2), kernel_size, stride, padding, bias, mode='C'+mode, negative_slope=negative_slope)
     return up1
@@ -395,6 +642,19 @@ def upsample_pixelshuffle(in_channels=64, out_channels=3, kernel_size=3, stride=
 # nearest_upsample + conv (+ R)
 # --------------------------------------------
 def upsample_upconv(in_channels=64, out_channels=3, kernel_size=3, stride=1, padding=1, bias=True, mode='2R', negative_slope=0.2):
+    """
+    Upample convolution layer.
+
+    Args:
+        in_channels: (int): write your description
+        out_channels: (int): write your description
+        kernel_size: (int): write your description
+        stride: (int): write your description
+        padding: (str): write your description
+        bias: (array): write your description
+        mode: (str): write your description
+        negative_slope: (bool): write your description
+    """
     assert len(mode)<4 and mode[0] in ['2', '3', '4'], 'mode examples: 2, 2R, 2BR, 3, ..., 4BR'
     if mode[0] == '2':
         uc = 'UC'
@@ -411,6 +671,19 @@ def upsample_upconv(in_channels=64, out_channels=3, kernel_size=3, stride=1, pad
 # convTranspose (+ relu)
 # --------------------------------------------
 def upsample_convtranspose(in_channels=64, out_channels=3, kernel_size=2, stride=2, padding=0, bias=True, mode='2R', negative_slope=0.2):
+    """
+    Upsample convolution layer.
+
+    Args:
+        in_channels: (int): write your description
+        out_channels: (int): write your description
+        kernel_size: (int): write your description
+        stride: (int): write your description
+        padding: (str): write your description
+        bias: (todo): write your description
+        mode: (str): write your description
+        negative_slope: (bool): write your description
+    """
     assert len(mode)<4 and mode[0] in ['2', '3', '4'], 'mode examples: 2, 2R, 2BR, 3, ..., 4BR.'
     kernel_size = int(mode[0])
     stride = int(mode[0])
@@ -435,6 +708,19 @@ def upsample_convtranspose(in_channels=64, out_channels=3, kernel_size=2, stride
 # strideconv (+ relu)
 # --------------------------------------------
 def downsample_strideconv(in_channels=64, out_channels=64, kernel_size=2, stride=2, padding=0, bias=True, mode='2R', negative_slope=0.2):
+    """
+    Downsample convolution layer.
+
+    Args:
+        in_channels: (int): write your description
+        out_channels: (int): write your description
+        kernel_size: (int): write your description
+        stride: (int): write your description
+        padding: (str): write your description
+        bias: (todo): write your description
+        mode: (str): write your description
+        negative_slope: (bool): write your description
+    """
     assert len(mode)<4 and mode[0] in ['2', '3', '4'], 'mode examples: 2, 2R, 2BR, 3, ..., 4BR.'
     kernel_size = int(mode[0])
     stride = int(mode[0])
@@ -447,6 +733,19 @@ def downsample_strideconv(in_channels=64, out_channels=64, kernel_size=2, stride
 # maxpooling + conv (+ relu)
 # --------------------------------------------
 def downsample_maxpool(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=0, bias=True, mode='2R', negative_slope=0.2):
+    """
+    Downsample maxpool.
+
+    Args:
+        in_channels: (int): write your description
+        out_channels: (todo): write your description
+        kernel_size: (int): write your description
+        stride: (int): write your description
+        padding: (int): write your description
+        bias: (todo): write your description
+        mode: (str): write your description
+        negative_slope: (bool): write your description
+    """
     assert len(mode)<4 and mode[0] in ['2', '3'], 'mode examples: 2, 2R, 2BR, 3, ..., 3BR.'
     kernel_size_pool = int(mode[0])
     stride_pool = int(mode[0])
@@ -460,6 +759,19 @@ def downsample_maxpool(in_channels=64, out_channels=64, kernel_size=3, stride=1,
 # averagepooling + conv (+ relu)
 # --------------------------------------------
 def downsample_avgpool(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, bias=True, mode='2R', negative_slope=0.2):
+    """
+    Downsample convolutional layer.
+
+    Args:
+        in_channels: (int): write your description
+        out_channels: (int): write your description
+        kernel_size: (int): write your description
+        stride: (int): write your description
+        padding: (int): write your description
+        bias: (todo): write your description
+        mode: (str): write your description
+        negative_slope: (bool): write your description
+    """
     assert len(mode)<4 and mode[0] in ['2', '3'], 'mode examples: 2, 2R, 2BR, 3, ..., 3BR.'
     kernel_size_pool = int(mode[0])
     stride_pool = int(mode[0])
@@ -484,6 +796,21 @@ def downsample_avgpool(in_channels=64, out_channels=64, kernel_size=3, stride=1,
 # --------------------------------------------
 class NonLocalBlock2D(nn.Module):
     def __init__(self, nc=64, kernel_size=1, stride=1, padding=0, bias=True, act_mode='B', downsample=False, downsample_mode='maxpool', negative_slope=0.2):
+        """
+        Initialize the convolutional layer.
+
+        Args:
+            self: (todo): write your description
+            nc: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            bias: (float): write your description
+            act_mode: (str): write your description
+            downsample: (todo): write your description
+            downsample_mode: (todo): write your description
+            negative_slope: (todo): write your description
+        """
 
         super(NonLocalBlock2D, self).__init__()
 

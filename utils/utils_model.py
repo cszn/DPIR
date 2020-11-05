@@ -46,6 +46,13 @@ def test_mode(model, L, mode=0, refield=32, min_size=256, sf=1, modulo=1):
 
 
 def test(model, L):
+    """
+    Return a l is a l
+
+    Args:
+        model: (todo): write your description
+        L: (int): write your description
+    """
     E = model(L)
     return E
 
@@ -58,6 +65,14 @@ def test(model, L):
 
 
 def test_pad(model, L, modulo=16):
+    """
+    Test if l is a l
+
+    Args:
+        model: (todo): write your description
+        L: (int): write your description
+        modulo: (todo): write your description
+    """
     h, w = L.size()[-2:]
     paddingBottom = int(np.ceil(h/modulo)*modulo-h)
     paddingRight = int(np.ceil(w/modulo)*modulo-w)
@@ -146,6 +161,17 @@ def test_onesplit(model, L, refield=32, min_size=256, sf=1, modulo=1):
 
 
 def test_split(model, L, refield=32, min_size=256, sf=1, modulo=1):
+    """
+    Split test model.
+
+    Args:
+        model: (todo): write your description
+        L: (str): write your description
+        refield: (str): write your description
+        min_size: (int): write your description
+        sf: (str): write your description
+        modulo: (todo): write your description
+    """
     E = test_split_fn(model, L, refield=refield, min_size=min_size, sf=sf, modulo=modulo)
     return E
 
@@ -158,6 +184,14 @@ def test_split(model, L, refield=32, min_size=256, sf=1, modulo=1):
 
 
 def test_x8(model, L, modulo=1):
+    """
+    Evaluates x8 of - tensor.
+
+    Args:
+        model: (todo): write your description
+        L: (todo): write your description
+        modulo: (todo): write your description
+    """
     E_list = [test_pad(model, util.augment_img_tensor(L, mode=i), modulo=modulo) for i in range(8)]
     for i in range(len(E_list)):
         if i == 3 or i == 5:
@@ -177,6 +211,17 @@ def test_x8(model, L, modulo=1):
 
 
 def test_split_x8(model, L, refield=32, min_size=256, sf=1, modulo=1):
+    """
+    Split a single tf model.
+
+    Args:
+        model: (todo): write your description
+        L: (todo): write your description
+        refield: (str): write your description
+        min_size: (int): write your description
+        sf: (todo): write your description
+        modulo: (todo): write your description
+    """
     E_list = [test_split_fn(model, util.augment_img_tensor(L, mode=i), refield=refield, min_size=min_size, sf=sf, modulo=modulo) for i in range(8)]
     for k, i in enumerate(range(len(E_list))):
         if i==3 or i==5:
@@ -206,6 +251,12 @@ def test_split_x8(model, L, refield=32, min_size=256, sf=1, modulo=1):
 # print model
 # -------------------
 def print_model(model):
+    """
+    Print the model.
+
+    Args:
+        model: (todo): write your description
+    """
     msg = describe_model(model)
     print(msg)
 
@@ -214,6 +265,12 @@ def print_model(model):
 # print params
 # -------------------
 def print_params(model):
+    """
+    Prints the parameters.
+
+    Args:
+        model: (todo): write your description
+    """
     msg = describe_params(model)
     print(msg)
 
@@ -229,6 +286,12 @@ def print_params(model):
 # model inforation
 # -------------------
 def info_model(model):
+    """
+    Describes model info.
+
+    Args:
+        model: (todo): write your description
+    """
     msg = describe_model(model)
     return msg
 
@@ -237,6 +300,12 @@ def info_model(model):
 # params inforation
 # -------------------
 def info_params(model):
+    """
+    Describes the model parameters.
+
+    Args:
+        model: (todo): write your description
+    """
     msg = describe_params(model)
     return msg
 
@@ -252,6 +321,12 @@ def info_params(model):
 # model name and total number of parameters
 # ----------------------------------------------
 def describe_model(model):
+    """
+    Describe the model instance.
+
+    Args:
+        model: (todo): write your description
+    """
     if isinstance(model, torch.nn.DataParallel):
         model = model.module
     msg = '\n'
@@ -265,6 +340,12 @@ def describe_model(model):
 # parameters description
 # ----------------------------------------------
 def describe_params(model):
+    """
+    Describe model params.
+
+    Args:
+        model: (todo): write your description
+    """
     if isinstance(model, torch.nn.DataParallel):
         model = model.module
     msg = '\n'
@@ -280,10 +361,25 @@ if __name__ == '__main__':
 
     class Net(torch.nn.Module):
         def __init__(self, in_channels=3, out_channels=3):
+            """
+            Initialize the layer.
+
+            Args:
+                self: (todo): write your description
+                in_channels: (int): write your description
+                out_channels: (int): write your description
+            """
             super(Net, self).__init__()
             self.conv = torch.nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=3, padding=1)
 
         def forward(self, x):
+            """
+            Forward computation.
+
+            Args:
+                self: (todo): write your description
+                x: (todo): write your description
+            """
             x = self.conv(x)
             return x
 

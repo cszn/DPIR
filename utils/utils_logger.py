@@ -12,6 +12,11 @@ https://github.com/xinntao/BasicSR
 
 
 def log(*args, **kwargs):
+    """
+    Log a message to the console.
+
+    Args:
+    """
     print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S:"), *args, **kwargs)
 
 
@@ -54,12 +59,32 @@ def logger_info(logger_name, log_path='default_logger.log'):
 
 class logger_print(object):
     def __init__(self, log_path="default.log"):
+        """
+        Initialize log_path
+
+        Args:
+            self: (todo): write your description
+            log_path: (str): write your description
+        """
         self.terminal = sys.stdout
         self.log = open(log_path, 'a')
 
     def write(self, message):
+        """
+        Write a message to the log.
+
+        Args:
+            self: (todo): write your description
+            message: (str): write your description
+        """
         self.terminal.write(message)
         self.log.write(message)  # write the message
 
     def flush(self):
+        """
+        Flush the cache entries.
+
+        Args:
+            self: (todo): write your description
+        """
         pass

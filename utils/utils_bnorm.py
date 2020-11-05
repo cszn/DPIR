@@ -3,6 +3,15 @@ import torch.nn as nn
 
 
 def deleteLayer(model, layer_type=nn.BatchNorm2d):
+    """
+    Delete layer_children.
+
+    Args:
+        model: (todo): write your description
+        layer_type: (str): write your description
+        nn: (todo): write your description
+        BatchNorm2d: (todo): write your description
+    """
     for k, m in list(model.named_children()):
         if isinstance(m, layer_type):
             del model._modules[k]

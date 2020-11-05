@@ -44,14 +44,33 @@ def get_uperleft_denominator_pytorch(img, kernel):
 
 
 def c2c(x):
+    """
+    Convert c2c2c2c2c2c2c
+
+    Args:
+        x: (todo): write your description
+    """
     return torch.from_numpy(np.stack([np.float32(x.real), np.float32(x.imag)], axis=-1))
 
 
 def r2c(x):
+    """
+    Returns a 2d array x into a 2d array
+
+    Args:
+        x: (todo): write your description
+    """
     return torch.stack([x, torch.zeros_like(x)], -1)
 
 
 def cdiv(x, y):
+    """
+    Cdivide ( x y ).
+
+    Args:
+        x: (int): write your description
+        y: (int): write your description
+    """
     a, b = x[..., 0], x[..., 1]
     c, d = y[..., 0], y[..., 1]
     cd2 = c**2 + d**2
@@ -59,6 +78,12 @@ def cdiv(x, y):
 
 
 def cabs(x):
+    """
+    Cabs ( x ( x ).
+
+    Args:
+        x: (todo): write your description
+    """
     return torch.pow(x[..., 0]**2+x[..., 1]**2, 0.5)
 
 
@@ -85,18 +110,42 @@ def cconj(t, inplace=False):
 
 
 def rfft(t):
+    """
+    Compute the fft of a time tff tff.
+
+    Args:
+        t: (array): write your description
+    """
     return torch.rfft(t, 2, onesided=False)
 
 
 def irfft(t):
+    """
+    Compute the fft fourier transform.
+
+    Args:
+        t: (array): write your description
+    """
     return torch.irfft(t, 2, onesided=False)
 
 
 def fft(t):
+    """
+    Compute the fft of t
+
+    Args:
+        t: (array): write your description
+    """
     return torch.fft(t, 2)
 
 
 def ifft(t):
+    """
+    If t isftch. t.
+
+    Args:
+        t: (array): write your description
+    """
     return torch.ifft(t, 2)
 
 
@@ -119,6 +168,13 @@ def p2o(psf, shape):
 
 # otf2psf: not sure where I got this one from. Maybe translated from Octave source code or whatever. It's just math.
 def otf2psf(otf, outsize=None):
+    """
+    Otf2ps using osmf2ps
+
+    Args:
+        otf: (todo): write your description
+        outsize: (int): write your description
+    """
     insize = np.array(otf.shape)
     psf = np.fft.ifftn(otf, axes=(0, 1))
     for axis, axis_size in enumerate(insize):
@@ -378,6 +434,12 @@ def wrap_boundary(img, img_size):
 
 
 def solve_min_laplacian(boundary_image):
+    """
+    Solve a 2dstacacian of a 2d image.
+
+    Args:
+        boundary_image: (todo): write your description
+    """
     (H, W) = np.shape(boundary_image)
 
     # Laplacian
@@ -484,6 +546,13 @@ def fspecial_disk(radius):
 
 
 def fspecial_gaussian(hsize, sigma):
+    """
+    Fspecial gaussian gaussian.
+
+    Args:
+        hsize: (int): write your description
+        sigma: (float): write your description
+    """
     hsize = [hsize, hsize]
     siz = [(hsize[0]-1.0)/2.0, (hsize[1]-1.0)/2.0]
     std = sigma
@@ -498,6 +567,12 @@ def fspecial_gaussian(hsize, sigma):
 
 
 def fspecial_laplacian(alpha):
+    """
+    Return fspecializedplacian.
+
+    Args:
+        alpha: (float): write your description
+    """
     alpha = max([0, min([alpha,1])])
     h1 = alpha/(alpha+1)
     h2 = (1-alpha)/(alpha+1)
@@ -507,18 +582,42 @@ def fspecial_laplacian(alpha):
 
 
 def fspecial_log(hsize, sigma):
+    """
+    Fspecial log - likelihood.
+
+    Args:
+        hsize: (int): write your description
+        sigma: (float): write your description
+    """
     raise(NotImplemented)
 
 
 def fspecial_motion(motion_len, theta):
+    """
+    : parameter : paramet.
+
+    Args:
+        motion_len: (int): write your description
+        theta: (float): write your description
+    """
     raise(NotImplemented)
 
 
 def fspecial_prewitt():
+    """
+    Prewittittitt.
+
+    Args:
+    """
     return np.array([[1, 1, 1], [0, 0, 0], [-1, -1, -1]])
 
 
 def fspecial_sobel():
+    """
+    Compute the fspecial.
+
+    Args:
+    """
     return np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]])
 
 
@@ -546,12 +645,26 @@ def fspecial(filter_type, *args, **kwargs):
 
 
 def fspecial_gauss(size, sigma):
+    """
+    Returns a gaussian size.
+
+    Args:
+        size: (int): write your description
+        sigma: (float): write your description
+    """
     x, y = mgrid[-size // 2 + 1 : size // 2 + 1, -size // 2 + 1 : size // 2 + 1]
     g = exp(-((x ** 2 + y ** 2) / (2.0 * sigma ** 2)))
     return g / g.sum()
 
 
 def blurkernel_synthesis(h=37, w=None):
+    """
+    Blurkernel kernel.
+
+    Args:
+        h: (todo): write your description
+        w: (todo): write your description
+    """
     w = h if w is None else w
     kdims = [h, w]
     x = randomTrajectory(150)
@@ -574,6 +687,12 @@ def blurkernel_synthesis(h=37, w=None):
 
 
 def kernelFromTrajectory(x):
+    """
+    Kernelject kernel from kernel
+
+    Args:
+        x: (array): write your description
+    """
     h = 5 - log(rand()) / 0.15
     h = round(min([h, 27])).astype(int)
     h = h + 1 - h % 2
@@ -605,6 +724,12 @@ def kernelFromTrajectory(x):
 
 
 def randomTrajectory(T):
+    """
+    Generate a rotation matrix.
+
+    Args:
+        T: (todo): write your description
+    """
     x = zeros((3, T))
     v = randn(3, T)
     r = zeros((3, T))
@@ -622,6 +747,13 @@ def randomTrajectory(T):
 
 
 def rot3D(x, r):
+    """
+    Rotate a 3d rotation by angle r.
+
+    Args:
+        x: (array): write your description
+        r: (array): write your description
+    """
     Rx = array([[1, 0, 0], [0, cos(r[0]), -sin(r[0])], [0, sin(r[0]), cos(r[0])]])
     Ry = array([[cos(r[1]), 0, sin(r[1])], [0, 1, 0], [-sin(r[1]), 0, cos(r[1])]])
     Rz = array([[cos(r[2]), -sin(r[2]), 0], [sin(r[2]), cos(r[2]), 0], [0, 0, 1]])

@@ -12,6 +12,19 @@ import numpy as np
 
 class UNet(nn.Module):
     def __init__(self, in_nc=1, out_nc=1, nc=[64, 128, 256, 512], nb=2, act_mode='R', downsample_mode='strideconv', upsample_mode='convtranspose'):
+        """
+        Initialize the network
+
+        Args:
+            self: (todo): write your description
+            in_nc: (int): write your description
+            out_nc: (str): write your description
+            nc: (int): write your description
+            nb: (int): write your description
+            act_mode: (str): write your description
+            downsample_mode: (todo): write your description
+            upsample_mode: (todo): write your description
+        """
         super(UNet, self).__init__()
 
         self.m_head = B.conv(in_nc, nc[0], mode='C'+act_mode[-1])
@@ -49,6 +62,13 @@ class UNet(nn.Module):
         self.m_tail = B.conv(nc[0], out_nc, bias=True, mode='C')
 
     def forward(self, x0):
+        """
+        Forward the forward forward
+
+        Args:
+            self: (todo): write your description
+            x0: (array): write your description
+        """
 
         x1 = self.m_head(x0)
         x2 = self.m_down1(x1)
@@ -66,6 +86,19 @@ class UNet(nn.Module):
 
 class UNetRes(nn.Module):
     def __init__(self, in_nc=1, out_nc=1, nc=[64, 128, 256, 512], nb=4, act_mode='R', downsample_mode='strideconv', upsample_mode='convtranspose'):
+        """
+        Initialize the network
+
+        Args:
+            self: (todo): write your description
+            in_nc: (int): write your description
+            out_nc: (str): write your description
+            nc: (int): write your description
+            nb: (int): write your description
+            act_mode: (str): write your description
+            downsample_mode: (todo): write your description
+            upsample_mode: (todo): write your description
+        """
         super(UNetRes, self).__init__()
 
         self.m_head = B.conv(in_nc, nc[0], bias=False, mode='C')
@@ -103,6 +136,13 @@ class UNetRes(nn.Module):
         self.m_tail = B.conv(nc[0], out_nc, bias=False, mode='C')
 
     def forward(self, x0):
+        """
+        Forward the forward forward
+
+        Args:
+            self: (todo): write your description
+            x0: (array): write your description
+        """
         x1 = self.m_head(x0)
         x2 = self.m_down1(x1)
         x3 = self.m_down2(x2)
@@ -118,6 +158,19 @@ class UNetRes(nn.Module):
 
 class ResUNet(nn.Module):
     def __init__(self, in_nc=1, out_nc=1, nc=[64, 128, 256, 512], nb=4, act_mode='L', downsample_mode='strideconv', upsample_mode='convtranspose'):
+        """
+        Initialize the network
+
+        Args:
+            self: (todo): write your description
+            in_nc: (int): write your description
+            out_nc: (str): write your description
+            nc: (int): write your description
+            nb: (int): write your description
+            act_mode: (str): write your description
+            downsample_mode: (todo): write your description
+            upsample_mode: (todo): write your description
+        """
         super(ResUNet, self).__init__()
 
         self.m_head = B.conv(in_nc, nc[0], bias=False, mode='C')
@@ -155,6 +208,13 @@ class ResUNet(nn.Module):
         self.m_tail = B.conv(nc[0], out_nc, bias=False, mode='C')
 
     def forward(self, x):
+        """
+        Forward the forward forward.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         
         h, w = x.size()[-2:]
         paddingBottom = int(np.ceil(h/8)*8-h)
@@ -189,6 +249,19 @@ class ResUNet(nn.Module):
 
 class UNetResSubP(nn.Module):
     def __init__(self, in_nc=1, out_nc=1, nc=[64, 128, 256, 512], nb=2, act_mode='R', downsample_mode='strideconv', upsample_mode='convtranspose'):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            in_nc: (int): write your description
+            out_nc: (str): write your description
+            nc: (int): write your description
+            nb: (int): write your description
+            act_mode: (str): write your description
+            downsample_mode: (todo): write your description
+            upsample_mode: (todo): write your description
+        """
         super(UNetResSubP, self).__init__()
         sf = 2
         self.m_ps_down = B.PixelUnShuffle(sf)
@@ -228,6 +301,13 @@ class UNetResSubP(nn.Module):
         self.m_tail = B.conv(nc[0], out_nc*sf*sf, bias=False, mode='C')
 
     def forward(self, x0):
+        """
+        Forward forward forward forward
+
+        Args:
+            self: (todo): write your description
+            x0: (array): write your description
+        """
         x0_d = self.m_ps_down(x0)
         x1 = self.m_head(x0_d)
         x2 = self.m_down1(x1)
@@ -245,6 +325,19 @@ class UNetResSubP(nn.Module):
 
 class UNetPlus(nn.Module):
     def __init__(self, in_nc=3, out_nc=3, nc=[64, 128, 256, 512], nb=1, act_mode='R', downsample_mode='strideconv', upsample_mode='convtranspose'):
+        """
+        Initialize the network
+
+        Args:
+            self: (todo): write your description
+            in_nc: (int): write your description
+            out_nc: (str): write your description
+            nc: (int): write your description
+            nb: (int): write your description
+            act_mode: (str): write your description
+            downsample_mode: (todo): write your description
+            upsample_mode: (todo): write your description
+        """
         super(UNetPlus, self).__init__()
 
         self.m_head = B.conv(in_nc, nc[0], mode='C')
@@ -282,6 +375,13 @@ class UNetPlus(nn.Module):
         self.m_tail = B.conv(nc[0], out_nc, mode='C')
 
     def forward(self, x0):
+        """
+        Forward the forward forward
+
+        Args:
+            self: (todo): write your description
+            x0: (array): write your description
+        """
         x1 = self.m_head(x0)
         x2 = self.m_down1(x1)
         x3 = self.m_down2(x2)
@@ -301,6 +401,19 @@ class UNetPlus(nn.Module):
 
 class NonLocalUNet(nn.Module):
     def __init__(self, in_nc=3, out_nc=3, nc=[64,128,256,512], nb=1, act_mode='R', downsample_mode='strideconv', upsample_mode='convtranspose'):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            in_nc: (int): write your description
+            out_nc: (str): write your description
+            nc: (int): write your description
+            nb: (int): write your description
+            act_mode: (str): write your description
+            downsample_mode: (todo): write your description
+            upsample_mode: (todo): write your description
+        """
         super(NonLocalUNet, self).__init__()
 
         down_nonlocal = B.NonLocalBlock2D(nc[2], kernel_size=1, stride=1, padding=0, bias=True, act_mode='B', downsample=False, downsample_mode='strideconv')
@@ -343,6 +456,13 @@ class NonLocalUNet(nn.Module):
         self.m_tail = B.conv(nc[0], out_nc, mode='C')
 
     def forward(self, x0):
+        """
+        Forward the forward forward
+
+        Args:
+            self: (todo): write your description
+            x0: (array): write your description
+        """
         x1 = self.m_head(x0)
         x2 = self.m_down1(x1)
         x3 = self.m_down2(x2)

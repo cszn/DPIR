@@ -23,14 +23,34 @@ IMG_EXTENSIONS = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.ppm', '.PP
 
 
 def is_image_file(filename):
+    """
+    Determine if a file is an image.
+
+    Args:
+        filename: (str): write your description
+    """
     return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
 
 
 def get_timestamp():
+    """
+    Returns a datetime.
+
+    Args:
+    """
     return datetime.now().strftime('%y%m%d-%H%M%S')
 
 
 def imshow(x, title=None, cbar=False, figsize=None):
+    """
+    Show a matplotlib figure.
+
+    Args:
+        x: (todo): write your description
+        title: (str): write your description
+        cbar: (bool): write your description
+        figsize: (int): write your description
+    """
     plt.figure(figsize=figsize)
     plt.imshow(np.squeeze(x), interpolation='nearest', cmap='gray')
     if title:
@@ -41,6 +61,12 @@ def imshow(x, title=None, cbar=False, figsize=None):
 
 
 def surf(Z):
+    """
+    Plot the surface surface.
+
+    Args:
+        Z: (array): write your description
+    """
     from mpl_toolkits.mplot3d import Axes3D
     fig = plt.figure()
     ax = Axes3D(fig)
@@ -64,6 +90,12 @@ def surf(Z):
 
 
 def get_image_paths(dataroot):
+    """
+    Get list of paths from datar.
+
+    Args:
+        dataroot: (str): write your description
+    """
     paths = None  # return None if dataroot is None
     if dataroot is not None:
         paths = sorted(_get_paths_from_images(dataroot))
@@ -71,6 +103,12 @@ def get_image_paths(dataroot):
 
 
 def _get_paths_from_images(path):
+    """
+    Return list of images.
+
+    Args:
+        path: (str): write your description
+    """
     assert os.path.isdir(path), '{:s} is not a valid directory'.format(path)
     images = []
     for dirpath, _, fnames in sorted(os.walk(path)):
@@ -90,11 +128,23 @@ def _get_paths_from_images(path):
 
 
 def mkdir(path):
+    """
+    Create a directory if it doesn t exist.
+
+    Args:
+        path: (str): write your description
+    """
     if not os.path.exists(path):
         os.makedirs(path)
 
 
 def mkdirs(paths):
+    """
+    Recursively create directories.
+
+    Args:
+        paths: (str): write your description
+    """
     if isinstance(paths, str):
         mkdir(paths)
     else:
@@ -103,6 +153,12 @@ def mkdirs(paths):
 
 
 def mkdir_and_rename(path):
+    """
+    Create a directory if it exists.
+
+    Args:
+        path: (str): write your description
+    """
     if os.path.exists(path):
         new_name = path + '_archived_' + get_timestamp()
         print('Path already exists. Rename it to [{:s}]'.format(new_name))
@@ -120,6 +176,18 @@ def mkdir_and_rename(path):
 
 
 def todevice(x_list, device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')):
+    """
+    Convert a tode string.
+
+    Args:
+        x_list: (list): write your description
+        device: (todo): write your description
+        torch: (todo): write your description
+        device: (todo): write your description
+        torch: (todo): write your description
+        cuda: (todo): write your description
+        is_available: (bool): write your description
+    """
      return [img.to(device) for img in x_list]
 
 
@@ -128,6 +196,12 @@ def todevice(x_list, device=torch.device('cuda' if torch.cuda.is_available() els
 # get single image of size HxWxn_channles (BGR)
 # ----------------------------------------
 def read_img(path):
+    """
+    Reads an image
+
+    Args:
+        path: (str): write your description
+    """
     # read image by cv2
     # return: Numpy float32, HWC, BGR, [0,1]
     img = cv2.imread(path, cv2.IMREAD_UNCHANGED)  # cv2.IMREAD_GRAYSCALE
@@ -144,6 +218,13 @@ def read_img(path):
 # get uint8 image of size HxWxn_channles (RGB)
 # ----------------------------------------
 def imread_uint(path, n_channels=3):
+    """
+    Reads an rgb image from a png image file.
+
+    Args:
+        path: (str): write your description
+        n_channels: (int): write your description
+    """
     #  input: path
     # output: HxWx3(RGB or GGG), or HxWx1 (G)
     if n_channels == 1:
@@ -159,6 +240,13 @@ def imread_uint(path, n_channels=3):
 
 
 def imsave(img, img_path):
+    """
+    Convert an image to an image.
+
+    Args:
+        img: (array): write your description
+        img_path: (str): write your description
+    """
     img = np.squeeze(img)
     if img.ndim == 3:
         img = img[:, :, [2, 1, 0]]
@@ -180,21 +268,45 @@ def imsave(img, img_path):
 
 
 def uint2single(img):
+    """
+    Convert a 2d numpy array
+
+    Args:
+        img: (array): write your description
+    """
 
     return np.float32(img/255.)
 
 
 def single2uint(img):
+    """
+    Convert an image to an array of integers.
+
+    Args:
+        img: (array): write your description
+    """
 
     return np.uint8((img.clip(0, 1)*255.).round())
 
 
 def uint162single(img):
+    """
+    Convert an image to a uint8
+
+    Args:
+        img: (array): write your description
+    """
 
     return np.float32(img/65535.)
 
 
 def single2uint16(img):
+    """
+    Convert an image to a 32 bit integer.
+
+    Args:
+        img: (array): write your description
+    """
 
     return np.uint8((img.clip(0, 1)*65535.).round())
 
@@ -207,6 +319,12 @@ def single2uint16(img):
 
 # convert uint (HxWxn_channels) to 4-dimensional torch tensor
 def uint2tensor4(img):
+    """
+    Convert an image to a tensor.
+
+    Args:
+        img: (array): write your description
+    """
     if img.ndim == 2:
         img = np.expand_dims(img, axis=2)
     return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float().div(255.).unsqueeze(0)
@@ -214,6 +332,12 @@ def uint2tensor4(img):
 
 # convert uint (HxWxn_channels) to 3-dimensional torch tensor
 def uint2tensor3(img):
+    """
+    Convert an numpy array to a tensor
+
+    Args:
+        img: (array): write your description
+    """
     if img.ndim == 2:
         img = np.expand_dims(img, axis=2)
     return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float().div(255.)
@@ -221,6 +345,12 @@ def uint2tensor3(img):
 
 # convert torch tensor to uint
 def tensor2uint(img):
+    """
+    Convert uint8 uint8
+
+    Args:
+        img: (array): write your description
+    """
     img = img.data.squeeze().float().clamp_(0, 1).cpu().numpy()
     if img.ndim == 3:
         img = np.transpose(img, (1, 2, 0))
@@ -235,31 +365,73 @@ def tensor2uint(img):
 
 # convert single (HxWxn_channels) to 4-dimensional torch tensor
 def single2tensor4(img):
+    """
+    Convert an image into a 2d tensor
+
+    Args:
+        img: (array): write your description
+    """
     return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float().unsqueeze(0)
 
 
 def single2tensor5(img):
+    """
+    Convert a tensor image
+
+    Args:
+        img: (array): write your description
+    """
     return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1, 3).float().unsqueeze(0)
 
 
 def single32tensor5(img):
+    """
+    Convert a tensor to a tensor.
+
+    Args:
+        img: (array): write your description
+    """
     return torch.from_numpy(np.ascontiguousarray(img)).float().unsqueeze(0).unsqueeze(0)
 
 
 def single42tensor4(img):
+    """
+    Convert tensor
+
+    Args:
+        img: (array): write your description
+    """
     return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1, 3).float()
 
 
 # convert single (HxWxn_channels) to 3-dimensional torch tensor
 def single2tensor3(img):
+    """
+    Convert a 2d numpy.
+
+    Args:
+        img: (array): write your description
+    """
     return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float()
 
 # convert single (HxWx1, HxW) to 2-dimensional torch tensor
 def single2tensor2(img):
+    """
+    Convert numpy. numpy.
+
+    Args:
+        img: (array): write your description
+    """
     return torch.from_numpy(np.ascontiguousarray(img)).squeeze().float()
 
 # convert torch tensor to single
 def tensor2single(img):
+    """
+    Convert an image to 2d tensor.
+
+    Args:
+        img: (array): write your description
+    """
     img = img.data.squeeze().float().clamp_(0, 1).cpu().numpy()
     if img.ndim == 3:
         img = np.transpose(img, (1, 2, 0))
@@ -267,6 +439,12 @@ def tensor2single(img):
     return img
 
 def tensor2single3(img):
+    """
+    Convert an image to a 3dims
+
+    Args:
+        img: (array): write your description
+    """
     img = img.data.squeeze().float().clamp_(0, 1).cpu().numpy()
     if img.ndim == 3:
         img = np.transpose(img, (1, 2, 0))
@@ -314,6 +492,13 @@ def tensor2img(tensor, out_type=np.uint8, min_max=(0, 1)):
 
 
 def augment_img(img, mode=0):
+    """
+    Rotate an image
+
+    Args:
+        img: (array): write your description
+        mode: (str): write your description
+    """
     if mode == 0:
         return img
     elif mode == 1:
@@ -333,6 +518,13 @@ def augment_img(img, mode=0):
 
 
 def augment_img_tensor4(img, mode=0):
+    """
+    Rotate a 2 - tuple for the given image.
+
+    Args:
+        img: (array): write your description
+        mode: (str): write your description
+    """
     if mode == 0:
         return img
     elif mode == 1:
@@ -352,6 +544,13 @@ def augment_img_tensor4(img, mode=0):
 
 
 def augment_img_np3(img, mode=0):
+    """
+    Convert an image
+
+    Args:
+        img: (array): write your description
+        mode: (todo): write your description
+    """
     if mode == 0:
         return img
     elif mode == 1:
@@ -380,6 +579,13 @@ def augment_img_np3(img, mode=0):
 
 
 def augment_img_tensor(img, mode=0):
+    """
+    Convert an image to a tensor.
+
+    Args:
+        img: (array): write your description
+        mode: (str): write your description
+    """
     img_size = img.size()
     img_np = img.data.cpu().numpy()
     if len(img_size) == 3:
@@ -397,12 +603,26 @@ def augment_img_tensor(img, mode=0):
 
 
 def augment_imgs(img_list, hflip=True, rot=True):
+    """
+    Augment a list of images.
+
+    Args:
+        img_list: (list): write your description
+        hflip: (todo): write your description
+        rot: (todo): write your description
+    """
     # horizontal flip OR rotate
     hflip = hflip and random.random() < 0.5
     vflip = rot and random.random() < 0.5
     rot90 = rot and random.random() < 0.5
 
     def _augment(img):
+        """
+        Transpose of - if the given an image.
+
+        Args:
+            img: (array): write your description
+        """
         if hflip:
             img = img[:, ::-1, :]
         if vflip:
@@ -495,6 +715,13 @@ def bgr2ycbcr(img, only_y=True):
 
 
 def modcrop(img_in, scale):
+    """
+    Modcrop an image to a given scale.
+
+    Args:
+        img_in: (array): write your description
+        scale: (float): write your description
+    """
     # img_in: Numpy, HWC or HW
     img = np.copy(img_in)
     if img.ndim == 2:
@@ -511,6 +738,13 @@ def modcrop(img_in, scale):
 
 
 def shave(img_in, border=0):
+    """
+    Shave the given image to the given border.
+
+    Args:
+        img_in: (int): write your description
+        border: (int): write your description
+    """
     # img_in: Numpy, HWC or HW
     img = np.copy(img_in)
     h, w = img.shape[:2]
@@ -519,6 +753,14 @@ def shave(img_in, border=0):
 
 
 def channel_convert(in_c, tar_type, img_list):
+    """
+    Convert image_type
+
+    Args:
+        in_c: (int): write your description
+        tar_type: (todo): write your description
+        img_list: (list): write your description
+    """
     # conversion among BGR, gray and y
     if in_c == 3 and tar_type == 'gray':  # BGR to gray
         gray_list = [cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) for img in img_list]
@@ -543,6 +785,14 @@ def channel_convert(in_c, tar_type, img_list):
 # PSNR
 # ----------
 def calculate_psnr(img1, img2, border=0):
+    """
+    Calculate the psnr of the image.
+
+    Args:
+        img1: (array): write your description
+        img2: (array): write your description
+        border: (todo): write your description
+    """
     # img1 and img2 have range [0, 255]
     if not img1.shape == img2.shape:
         raise ValueError('Input images must have the same dimensions.')
@@ -587,6 +837,13 @@ def calculate_ssim(img1, img2, border=0):
 
 
 def ssim(img1, img2):
+    """
+    R calculate the mean of the mean image
+
+    Args:
+        img1: (array): write your description
+        img2: (array): write your description
+    """
     C1 = (0.01 * 255)**2
     C2 = (0.03 * 255)**2
 
@@ -618,6 +875,12 @@ def ssim(img1, img2):
 
 # matlab 'imresize' function, now only support 'bicubic'
 def cubic(x):
+    """
+    Cubic cubic )
+
+    Args:
+        x: (int): write your description
+    """
     absx = torch.abs(x)
     absx2 = absx**2
     absx3 = absx**3
@@ -626,6 +889,17 @@ def cubic(x):
 
 
 def calculate_weights_indices(in_length, out_length, scale, kernel, kernel_width, antialiasing):
+    """
+    Calculate the weights.
+
+    Args:
+        in_length: (int): write your description
+        out_length: (int): write your description
+        scale: (float): write your description
+        kernel: (str): write your description
+        kernel_width: (int): write your description
+        antialiasing: (todo): write your description
+    """
     if (scale < 1) and (antialiasing):
         # Use a modified kernel to simultaneously interpolate and antialias- larger kernel width
         kernel_width = kernel_width / scale
@@ -684,6 +958,14 @@ def calculate_weights_indices(in_length, out_length, scale, kernel, kernel_width
 # imresize for tensor image
 # --------------------------------
 def imresize(img, scale, antialiasing=True):
+    """
+    Resize an image.
+
+    Args:
+        img: (array): write your description
+        scale: (float): write your description
+        antialiasing: (todo): write your description
+    """
     # Now the scale should be the same for H and W
     # input: img: pytorch tensor, CHW or HW [0,1]
     # output: CHW or HW [0,1] w/o round
@@ -757,6 +1039,14 @@ def imresize(img, scale, antialiasing=True):
 # imresize for numpy image
 # --------------------------------
 def imresize_np(img, scale, antialiasing=True):
+    """
+    Resize an image.
+
+    Args:
+        img: (array): write your description
+        scale: (float): write your description
+        antialiasing: (todo): write your description
+    """
     # Now the scale should be the same for H and W
     # input: img: Numpy, HWC or HW [0,1]
     # output: HWC or HW [0,1] w/o round
