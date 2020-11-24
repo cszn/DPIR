@@ -173,7 +173,7 @@ def main():
                 # step 1, FFT
                 # --------------------------------
 
-                tau = rhos[i].repeat(1, 1, 1, 1)
+                tau = rhos[i].float().repeat(1, 1, 1, 1)
                 x = sr.data_solution(x, FB, FBC, F2B, FBFy, tau, sf)
 
                 if 'ircnn' in model_name:
@@ -195,7 +195,7 @@ def main():
                     x = util.augment_img_tensor4(x, i % 8)
 
                 if 'drunet' in model_name:
-                    x = torch.cat((x, sigmas[i].repeat(1, 1, x.shape[2], x.shape[3])), dim=1)
+                    x = torch.cat((x, sigmas[i].float().repeat(1, 1, x.shape[2], x.shape[3])), dim=1)
                     x = utils_model.test_mode(model, x, mode=2, refield=32, min_size=256, modulo=16)
                 elif 'ircnn' in model_name:
                     x = model(x)
