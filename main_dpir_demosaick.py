@@ -156,7 +156,7 @@ def main():
             # step 1, closed-form solution
             # --------------------------------
 
-            x = (y+rhos[i]*x).div(mask+rhos[i])
+            x = (y+rhos[i].float()*x).div(mask+rhos[i])
 
             # --------------------------------
             # step 2, denoiser
@@ -177,7 +177,7 @@ def main():
                 x = util.augment_img_tensor4(x, i % 8)
 
             if 'drunet' in model_name:
-                x = torch.cat((x, sigmas[i].repeat(1, 1, x.shape[2], x.shape[3])), dim=1)
+                x = torch.cat((x, sigmas[i].float().repeat(1, 1, x.shape[2], x.shape[3])), dim=1)
                 x = utils_model.test_mode(model, x, mode=2, refield=32, min_size=256, modulo=16)
                 # x = model(x)
             elif 'ircnn' in model_name:
