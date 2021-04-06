@@ -4,6 +4,20 @@ _[Computer Vision Lab](https://vision.ee.ethz.ch/the-institute.html), ETH Zurich
 
 [[paper](https://arxiv.org/pdf/2008.13751.pdf)]
 
+
+
+Denoising results on BSD68 and Urban100 datasets
+----------
+|  Dataset    | Noise Level | FFDNet-PSNR(RGB) | FFDNet-PSNR(Y) | **DRUNet-PSNR(RGB)** | **DRUNet-PSNR(Y)** |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| CBSD68 |  30    | 30.32  | 32.05  |  30.81 | 32.44 |
+| CBSD68 |   50   | 27.97  | 29.65  |  28.51 | 30.09 |
+| Urban100|  30   | 30.53  | 32.72  |  31.83 | 33.93 |
+| Urban100|   50  | 28.05  | 30.09  |  29.61 | 31.57 |
+
+```PSNR(Y) means the PSNR is calculated on the Y channel of YCbCr space.```
+
+
 Abstract
 ----------
 Recent works on plug-and-play image restoration have shown that a denoiser can implicitly serve as the image prior for
