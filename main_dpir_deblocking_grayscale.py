@@ -19,6 +19,13 @@ Kai Zhang (e-mail: cskaizhang@gmail.com)
 (github: https://github.com/cszn/DPIR)
 (github: https://github.com/cszn/KAIR)
 by Kai Zhang (06/June/2021)
+
+
+How to run to get the results in Table 3:
+Step 1: download 'classic5' and 'LIVE1' testing dataset from https://github.com/cszn/DnCNN/tree/master/testsets
+Step 2: download 'drunet_deblocking_grayscale.pth' model and 'dncnn3.pth' model, and put it into 'model_zoo'
+'drunet_deblocking_grayscale.pth': https://drive.google.com/file/d/1ySemeOINvVfraFi_SZxZ93UuV4hMzk8g/view?usp=sharing
+'dncnn3.pth': https://drive.google.com/file/d/1wwTFLFbS3AWowuNbe1XsEd_VCa2kof5I/view?usp=sharing
 '''
 
 
