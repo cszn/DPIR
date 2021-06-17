@@ -83,11 +83,11 @@ Color Image Demosaicing
 Citation
 ----------
 ```BibTex
-@article{zhang2020plug,
+@article{zhang2021plug,
   title={Plug-and-Play Image Restoration with Deep Denoiser Prior},
   author={Zhang, Kai and Li, Yawei and Zuo, Wangmeng and Zhang, Lei and Van Gool, Luc and Timofte, Radu},
-  journal={arXiv preprint},
-  year={2020}
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2021}
 }
  @inproceedings{zhang2017learning,
    title={Learning Deep CNN Denoiser Prior for Image Restoration},
