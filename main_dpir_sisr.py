@@ -44,6 +44,13 @@ by Kai Zhang (01/August/2020)
 |--testset                 # testsets
 |--results                 # results
 # --------------------------------------------
+
+
+How to run:
+step 1: download [drunet_gray.pth, drunet_color.pth, ircnn_gray.pth, ircnn_color.pth] from https://drive.google.com/drive/folders/13kfr3qny7S2xwG9h7v95F5mkWs0OmU0D
+step 2: set your own testset 'testset_name' and parameter setting such as 'noise_level_img', 'iter_num'. 
+step 3: 'python main_dpir_sisr.py'
+
 """
 
 def main():
