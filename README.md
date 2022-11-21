@@ -6,7 +6,7 @@
 
 _[Computer Vision Lab](https://vision.ee.ethz.ch/the-institute.html), ETH Zurich, Switzerland_
 
-[[paper](https://arxiv.org/pdf/2008.13751.pdf)] 
+[[paper arxiv](https://arxiv.org/pdf/2008.13751.pdf)]   [[paper tpami](https://ieeexplore.ieee.org/abstract/document/9454311)]
 
 
 
