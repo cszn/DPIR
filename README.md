@@ -91,6 +91,9 @@ Citation
   title={Plug-and-Play Image Restoration with Deep Denoiser Prior},
   author={Zhang, Kai and Li, Yawei and Zuo, Wangmeng and Zhang, Lei and Van Gool, Luc and Timofte, Radu},
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume={44},
+  number={10},
+  pages={6360-6376},
   year={2021}
 }
  @inproceedings{zhang2017learning,
